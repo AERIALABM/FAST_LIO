@@ -16,11 +16,17 @@ def generate_launch_description():
     default_rviz_config_path = os.path.join(
         package_path, 'rviz', 'fastlio.rviz')
 
+    namespace = LaunchConfiguration('namespace')
     use_sim_time = LaunchConfiguration('use_sim_time')
     config_path = LaunchConfiguration('config_path')
     config_file = LaunchConfiguration('config_file')
     rviz_use = LaunchConfiguration('rviz')
     rviz_cfg = LaunchConfiguration('rviz_cfg')
+
+    declare_namespace = DeclareLaunchArgument(
+        "namespace", default_value="",
+        description="Namespace"
+    )
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
         'use_sim_time', default_value='false',
@@ -47,7 +53,8 @@ def generate_launch_description():
         package='fast_lio',
         executable='fastlio_mapping',
         parameters=[PathJoinSubstitution([config_path, config_file]),
-                    {'use_sim_time': use_sim_time}],
+                    {'use_sim_time': use_sim_time},
+                    {"common.frame_prefix": namespace}],
         output='screen'
     )
     rviz_node = Node(
@@ -58,6 +65,7 @@ def generate_launch_description():
     )
 
     ld = LaunchDescription()
+    ld.add_action(declare_namespace)
     ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(declare_config_path_cmd)
     ld.add_action(decalre_config_file_cmd)
