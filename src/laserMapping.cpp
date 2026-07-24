@@ -874,12 +874,12 @@ public:
 
         RCLCPP_INFO(this->get_logger(), "p_pre->lidar_type %d", p_pre->lidar_type);
 
-        path.header.stamp = this->get_clock()->now();
-        path.header.frame_id = frame_prefix + "camera_init";
-
         // Ensure frame_prefix it ends with '/' if non-empty, so "my_ns" → "my_ns/"
         if (!frame_prefix.empty() && frame_prefix.back() != '/')
             frame_prefix += '/';
+
+        path.header.stamp = this->get_clock()->now();
+        path.header.frame_id = frame_prefix + "camera_init";
 
         // /*** variables definition ***/
         // int effect_feat_num = 0, frame_num = 0;
