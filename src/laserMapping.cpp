@@ -878,8 +878,8 @@ public:
         path.header.frame_id = frame_prefix + "camera_init";
 
         // Ensure frame_prefix it ends with '/' if non-empty, so "my_ns" → "my_ns/"
-        if (!frame_prefix_.empty() && frame_prefix_.back() != '/')
-            frame_prefix_ += '/';
+        if (!frame_prefix.empty() && frame_prefix.back() != '/')
+            frame_prefix += '/';
 
         // /*** variables definition ***/
         // int effect_feat_num = 0, frame_num = 0;
